@@ -4,21 +4,14 @@ $(document).ready(function() {
     $("#alias").focus();
 
 
-/*    document.onkeydown = function(evt) {
-    evt = evt || window.event;
-    if (evt.keyCode == 27) {
-        $.mobile.loading( 'hide' );
-        alert("Escape");
-    }
-};*/
 
-    var esc_handler = function() {
-        $.mobile.loading( 'hide' );
-    };
 
-    var e = jQuery.Event("keydown", { keyCode: 27 });
-    e.preventDefault();
-    console.log(e.preventDefault());
+    $('#page1').keydown(function(e){
+        if(e.which == 27){
+            $.mobile.loading( 'hide' );
+            console.log("stop spinner event invoked with ESC");
+        }
+    });
 
     $("#btnId").click(function(){
         var name = $("#alias").val();
@@ -27,7 +20,6 @@ $(document).ready(function() {
 
         $.mobile.loading( 'show' );
 
-        $("#page1").bind(e,esc_handler);
         $.ajax({
             url: "http://bootcamp.aws.af.cm/welcome/"+name,
             type: 'GET',
@@ -61,17 +53,16 @@ $(document).ready(function() {
                 $('.background').show();
                 var results = data.results;
                 var $list = $('#tweetsList');
-                $list.append("<h1>Tweets list</h1>");
-                 var tweet_data;
+                var tweet_data = "<h1>Tweets list</h1>";
 
                 for (var i = 0; i < results.length; i++) {
-                    tweet_data = "<li>Tweet " + i + ": <br>";
+                    tweet_data += "<li>Tweet " + i + ": <br>";
                     tweet_data += "From_user: " + results[i].from_user + "<br>";
                     tweet_data += "Text: " + results[i].text + "<br>";
                     tweet_data += "Created at: " + results[i].created_at + "<br>";
                     tweet_data += "<img src='" + results[i].profile_image_url + "'title= 'Profile_image_url: "+ results[i].profile_image_url+ "'></img></li>";
-                    $list.append(tweet_data);
                 }
+                $list.append(tweet_data);
         },
             error: function() {
                 console.log("An error occurred in the service call");
