@@ -37,19 +37,18 @@ $(document).ready(function() {
             context: document.body,
             success: function(data) {
                 $('.background').show();
-                var results = data.results;
+                 var results = data.results;
                 var $list = $('#tweetsList');
-                $list.append("<h1>Tweets list</h1>");
-                 var tweet_data;
+                var tweet_data = "<h1>Tweets list</h1>";
 
                 for (var i = 0; i < results.length; i++) {
-                    tweet_data = "<li>Tweet " + i + ": <br>";
+                    tweet_data += "<li>Tweet " + i + ": <br>";
                     tweet_data += "From_user: " + results[i].from_user + "<br>";
                     tweet_data += "Text: " + results[i].text + "<br>";
                     tweet_data += "Created at: " + results[i].created_at + "<br>";
                     tweet_data += "<img src='" + results[i].profile_image_url + "'title= 'Profile_image_url: "+ results[i].profile_image_url+ "'></img></li>";
-                    $list.append(tweet_data);
                 }
+                $list.append(tweet_data);
         },
             error: function() {
                 console.log("An error occurred in the service call");
