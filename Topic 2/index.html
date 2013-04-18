@@ -14,21 +14,69 @@
     <body>
         <div id="page1" data-role="page">
             <div data-role="header">
-              <h1> This is a header </h1>
+                <h1> This is the header for Home page</h1>
+                <ul data-role="listview">
+                    <li><a href="#page2" data-transition="pop">Enter your name</a></li>
+                    <li><a href="#page3" data-transition="slide">Get tweets</a></li>
+                    <li><a href="#page4" data-transition="flip">Links and dialogs</a></li>
+                </ul>
+                </div><!-- /listview -->
             </div> <!-- /header -->
+            <div data-role="content">
+            </div>
+        </div> <!-- /page 1 -->
 
+        <div id="page2" data-role="page" data-add-back-btn="true" data-back-btn-text="Home">
+            <div data-role="header">
+                <h1> Enter your name page</h1>
+            </div> <!-- /header -->
             <div data-role="content">
                 <div class= "container">
-                    <button id="btnId">A button</button>
-                    <input id="alias"></input>
-                </div>
-                <div class="background">  </div>
-                <div class="floated">
-                   <ul id="tweetsList">
-                   </ul>
+                    <label for="basic">Enter your name:</label>
+                    <input type="text" name="name" id="alias" value=""/>
+                    <button id="btnId">Ok</button>
                 </div>
             </div>
+        </div> <!-- /page 2 -->
 
-        </div> <!-- /page -->
+        <div id="page3" data-role="page" data-add-back-btn="true" data-back-btn-text="Home">
+            <div data-role="header">
+                <h1> List of tweets </h1>
+            </div> <!-- /header -->
+            <div data-role="content">
+                <div class="floated">
+                    <ul id="tweetsList" data-role="listview">
+                    </ul>
+                </div>
+            </div>
+        </div> <!-- /page 3 -->
+
+        <div id="page4" data-role="page" data-add-back-btn="true" data-back-btn-text="Home">
+            <div data-role="header">
+                <h1> Page 4 </h1>
+            </div> <!-- /header -->
+            <div data-role="content">
+                <a href="#dialog_page" data-role="button" data-inline="true" data-rel="dialog" data-transition="pop">Open dialog</a>
+                <a href="pages/sample1.html" data-ajax="false" data-role="button" data-icon="arrow-r" data-iconpos="right" data-inline="true">To the new page</a>
+            </div>
+        </div> <!-- /page 4 -->
+
+        <div id="dialog_page" data-role="page" data-close-btn="right">
+            <div data-role="header">
+                <h1> This is a dialog </h1>
+            </div> <!-- /header -->
+            <div data-role="content">
+                <p>You have opened a dialog!</p>
+                <a href="#page4" data-role="button" data-inline="true">Accept</a>
+                <a href="#" data-role="button" data-inline="true" data-rel="back">Cancel</a>
+            </div>
+        </div> <!-- /dialog_page -->
+
+        <div id="dialog_tweet" data-role="page">
+            <p>About the tweet...</p>
+            <div id="tweet_info"></div>
+            <a href="#page3" data-role="button" data-inline="true">Ok</a>
+        </div>
+
     </body>
 </html>

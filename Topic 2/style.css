@@ -1,38 +1,52 @@
-.background{
-	opacity:0.8;
-	z-index: 1001;
-	position: fixed;
-	top:0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	background-color: #FFF ;
-	display: none;
-
-}
-
 .highlight{
 	background-color: yellow;
 }
 .container{
 	position: relative;
+  width: 50%;
 }
 
 .red_colored{
 	color: red;
 }
 
-.floated{
-	position: relative;
-	float: left;
-	z-index: 1002;
-	opacity: 1.0;
-	top:0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
+#tweetsList{
+  text-align: center;
 }
 
-#tweetsList{
-	text-align: center;
+.ui-dialog-background {
+opacity: 0.5;
+display: block !important;
+-webkit-transition: opacity 0.5s ease-in;
+z-index: 1000;
+}
+
+#dialog_tweet .ui-dialog-contain{
+  background: linear-gradient(#3C3C3C, #111111) repeat scroll 0 0 #111111;
+  background: -moz-linear-gradient(#3C3C3C, #111111) repeat scroll 0 0 #111111 !important;
+}
+
+#tweet_info {
+  display: inline-block;
+}
+
+#tweet_info p{
+  float: right;
+  width: 68%;
+  height: 100%;
+  text-align: left;
+  margin-top: 0px;
+}
+
+#tweet_info img{
+  margin-left: 5px;
+  float: left;
+  width: 28%;
+  height: 100%;
+  border: 2px solid white;
+}
+
+#dialog_tweet{
+  text-align: center;
+  z-index: 1002 !important;
 }
