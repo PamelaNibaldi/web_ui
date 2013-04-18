@@ -1,13 +1,13 @@
 .highlight{
-	background-color: yellow;
+  background-color: yellow;
 }
 .container{
-	position: relative;
+  position: relative;
   width: 50%;
 }
 
 .red_colored{
-	color: red;
+  color: red;
 }
 
 #tweetsList{
@@ -15,10 +15,10 @@
 }
 
 .ui-dialog-background {
-opacity: 0.5;
-display: block !important;
--webkit-transition: opacity 0.5s ease-in;
-z-index: 1000;
+  opacity: 0.5;
+  display: block !important;
+  -webkit-transition: opacity 0.5s ease-in;
+  z-index: 1000;
 }
 
 #dialog_tweet .ui-dialog-contain{
