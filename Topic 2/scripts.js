@@ -3,7 +3,7 @@
 // });
 
 
-$('#page2').live( 'pageinit', function(){
+$(document).on('pageinit', '#page2', function(){
 
     $("#alias").focus();
 
@@ -43,7 +43,7 @@ $('#page2').live( 'pageinit', function(){
     });
 });
 
-$('#page3').live( 'pageinit', function(){
+$(document).on('pageinit', '#page3', function(){
     var results;
     function load_tweet_info(e){
       var tweet_id = ($(this).attr('id')).split("_")[1];
