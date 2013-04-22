@@ -1,44 +1,44 @@
 $(document).ready(function(){
   $('#btnId').on('click', function(){
 
-    // function Movie() {
+    function Movie(){
+      var attributes = {};
+      this.play = function () {
+        var n = attributes['name'] || 'no name';
+        this.publish(n, 'playing');
+      },
+      this.stop = function () {
+        var n = attributes['name'] || 'no name';
+        this.publish(n, 'stopped');
+      },
+      this.set = function (attr, value) {
+        attributes[attr] = value;
+      },
+      this.get = function (attr) {
+        return attributes[attr] || 'attribute does not exist';
+      }
+    };
+
+    //refactor: Module pattern
+    // var Movie = (function () {
+    //   var my = {};
     //   var attributes = {};
-    //   this.play = function () {
+    //   my.set = function (attr, value) {
+    //     attributes[attr] = value;
+    //   };
+    //   my.get = function (attr) {
+    //     return attributes[attr] || 'attribute does not exist';
+    //   };
+    //   my.play = function () {
     //     var n = attributes['name'] || 'no name';
     //     this.publish(n, 'playing');
     //   };
-    //   this.stop = function () {
+    //   my.stop = function () {
     //     var n = attributes['name'] || 'no name';
     //     this.publish(n, 'stopped');
     //   };
-    //   this.set = function (attr, value) {
-    //     attributes[attr] = value;
-    //   }
-    //   this.get = function (attr) {
-    //     return attributes[attr] || 'attribute does not exist';
-    //   }
-    // };
-
-    //refactor: Module pattern
-    var Movie = (function () {
-      var my = {};
-      var attributes = {};
-      my.set = function (attr, value) {
-        attributes[attr] = value;
-      };
-      my.get = function (attr) {
-        return attributes[attr] || 'attribute does not exist';
-      };
-      my.play = function () {
-        var n = attributes['name'] || 'no name';
-        this.publish(n, 'playing');
-      };
-      my.stop = function () {
-        var n = attributes['name'] || 'no name';
-        this.publish(n, 'stopped');
-      };
-      return my;
-    })();
+    //   return my;
+    // })();
 
     var MovieObserver = {
       addSubscriber:function (callback, fn) {
@@ -66,8 +66,8 @@ $(document).ready(function(){
       }
     };
 
-    //var movie1 = new Movie();
-    var movie1 = Movie;
+    var movie1 = new Movie();
+    //var movie1 = Movie;
     movie1.set('name', 'Batman');
     MovieObserver.make(movie1); // turns an object into a publisher
 
@@ -90,16 +90,17 @@ $(document).ready(function(){
     movie1.stop();
 
 
-    var DownloadableMovie = (function () {
-      var m = Object.create(Movie);
-      m.download = function () {
-        var n = m.get('name') || 'no name';
+
+    function DownloadableMovie(){
+      this.download = function () {
+        var n = this.get('name') || 'no name';
         console.log('Downloading movie...' + n);
       };
-      return m;
-    })();
+    };
+    DownloadableMovie.prototype = new Movie();
 
-    downloadable_movie = DownloadableMovie;
+
+    downloadable_movie = new DownloadableMovie();
     downloadable_movie.set('name', 'Spiderman');
     downloadable_movie.get('name');
     downloadable_movie.download();
@@ -107,7 +108,16 @@ $(document).ready(function(){
     console.log(downloadable_movie.hasOwnProperty('download'));
 
 
-    var extend = function(destination, source) {
+    var Social = {
+      share:function(friendName) {
+        console.log('Sharing ' + this.get('name') + ' with ' + friendName);
+      },
+      like:function() {
+        console.log('Like');
+      }
+    };
+    function extend(destination, source) {
+      console.log("source: "+source);
       for (var k in source) {
         if (source.hasOwnProperty(k)) {
           destination[k] = source[k];
@@ -116,17 +126,10 @@ $(document).ready(function(){
       return destination;
     }
 
-    var Social = {
-      share : function(friendName) {
-        console.log('Sharing ' + this.get('name') + ' with ' + friendName);
-      },
-      like : function() {
-        console.log('Like');
-      }
-    };
-    console.log(Movie);
+
+    console.log(Movie.prototype);
     extend(Movie.prototype, Social);
-    social_movie = Movie;
+    social_movie = new Movie();
     social_movie.share('Pepe');
     console.log(social_movie);
 
