@@ -1,6 +1,6 @@
 var Social = {
-    share:function(friend_name) {
-      console.log('Sharing movie ' + this.get('name') + ' with ' + friend_name);
+    share:function(friendName) {
+      console.log('Sharing movie ' + this.get('name') + ' with ' + friendName);
     },
     like:function() {
       console.log('Like');
@@ -16,7 +16,7 @@ var Social = {
   }
 
 extend(MovieModule.prototype, Social);
-social_movie = new MovieModule();
-social_movie.set('name', 'El Zorro');
-social_movie.share('Pepe');
-console.log(social_movie);
+socialMovie = new MovieModule();
+socialMovie.set('name', 'El Zorro');
+socialMovie.share('Pepe');
+console.log(socialMovie);

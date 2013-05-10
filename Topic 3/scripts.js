@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#btnId').click(function(){
-      //after this event is trigered, should execute the rest of .js files
+  $('#btnId').click(function() {
+      //after this event is triggered, should execute the rest of .js files
   });
 });

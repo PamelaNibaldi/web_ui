@@ -24,11 +24,11 @@ var MovieObserver = {
   }
   };
 
-var play_listener = {
-  play_listen:function (which) {
+var playListener = {
+  playListen:function (which) {
     console.log('Playing movie '+ which);
   },
-  stop_listen:function (which) {
+  stopListen:function (which) {
     console.log('Stopped playing movie ' + which);
   }
   };
@@ -37,7 +37,7 @@ var movie2 = new MovieModule();
 movie2.set('name', 'Xman');
 MovieObserver.make(movie2); // turns an object into a publisher
 
-movie2.addSubscriber(play_listener.play_listen, 'playing');
-movie2.addSubscriber(play_listener.stop_listen, 'stopped');
+movie2.addSubscriber(playListener.playListen, 'playing');
+movie2.addSubscriber(playListener.stopListen, 'stopped');
 movie2.play();
 movie2.stop();

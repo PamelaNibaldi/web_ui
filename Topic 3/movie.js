@@ -27,21 +27,24 @@ var MovieModule = (function() {
     this.attributes[attr] = value;
   };
   Movie.prototype.get = function (attr) {
-    return this.attributes[attr] || 'attribute does not exist';
+    return this.attributes[attr];
   };
   Movie.prototype.play = function () {
-    var n = this.attributes.name || 'no name';
+    var n = this.attributes.name;
     this.publish(n, 'playing');
   };
   Movie.prototype.stop = function () {
-    var n = this.attributes.name || 'no name';
+    var n = this.attributes.name;
     this.publish(n, 'stopped');
   };
 
   return Movie;
 })();
 
-var movie1 = new MovieModule();
-movie1.set('name', 'Batman');
-console.log('getting existing attribute "name": ' +movie1.get('name'));
-console.log('getting non-existing attribute "x": ' +movie1.get('x'));
+var movieA = new MovieModule();
+movieA.set('name', 'MovieAName');
+console.log('getting existing attribute "name": ' +movieA.get('name'));
+console.log('getting non-existing attribute "x": ' +movieA.get('x'));
+var movieB = new MovieModule();
+movieB.set('name', 'MovieBName');
+console.log('getting existing attribute "name": ' +movieB.get('name'));
