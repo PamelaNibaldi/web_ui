@@ -6,14 +6,14 @@ var Social = {
       console.log('Like');
     }
   };
-  function extend(destination, source) {
-    for (var k in source) {
-      if (source.hasOwnProperty(k)) {
-        destination[k] = source[k];
-      }
+function extend(destination, source) {
+  for (var k in source) {
+    if (source.hasOwnProperty(k)) {
+      destination[k] = source[k];
     }
-    return destination;
   }
+  return destination;
+}
 
 extend(MovieModule.prototype, Social);
 socialMovie = new MovieModule();

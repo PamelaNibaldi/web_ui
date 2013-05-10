@@ -17,6 +17,7 @@ var MovieWithActors = function() {
 };
 MovieWithActors.prototype = new MovieModule();
 MovieWithActors.prototype.constructor = MovieModule;
+
 MovieWithActors.prototype.addActors = function(actors) {
   this.actors = actors;
 };
@@ -34,8 +35,10 @@ var actors2 = [a3];
 
 var movieActors1 = new MovieWithActors();
 movieActors1.set('name', 'nombrePeli');
+
 var movieActors2 = new MovieWithActors();
 movieActors2.set('name', 'nombrePeli2');
+
 movieActors1.addActors(actors1);
 movieActors2.addActors(actors2);
 
