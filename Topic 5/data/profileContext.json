@@ -1,0 +1,17 @@
+{
+  "person": {"name": "Juan",
+            "lastName": "Lopez"
+            },
+
+  "img": "data/image.jpg",
+
+  "email": "jl@gmail.com",
+  "phone": "2494555500",
+
+  "university": "UNCPBA",
+  "languages": ["English", "French"],
+
+  "skills": ["java", "html", "css", "javascript"],
+
+  "experiences": ["Globant", "ABC"]
+}

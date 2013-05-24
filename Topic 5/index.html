@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Globant :: Welcome to the HTML5 bootcamp</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/javascript" src="js/libs/jquery.js"></script>
+    <script type="text/javascript" src="js/libs/handlebars.js"></script>
+    <script type="text/javascript" src="js/libs/underscore.js"></script>
+    <script type="text/javascript" src="js/libs/dust.js"></script>
+    <script type="text/x-handlebars-template" id="profileTemplateHandlebars">
+      {{! Header }}
+      <div class="header">Hello {{name}}! This is a Handlebars template example.
+        <button id="underscoreBtn">Go to Next template (Underscore)</button>
+        <button id='dustBtn'>Go to Next template (Dust)</button>
+      </div>
+      {{! Profile content }}
+      <div class="profile">
+        <div class="topData">
+          <h1>{{fullName person}}</h1>
+          <img class="profileImg" src={{img}}>
+        </div>
+        <div class="contactDetails"><b>Contact information:</b>
+          <p>Email: {{email}}</p>
+          <p>Phone: {{phone}}</p>
+        </div>
+        <div class="educationDetails"><b>Education:</b>
+          <p>University: {{university}}</p>
+          <p>Languages:
+            {{#each languages }}{{this}},
+            {{/each}}
+          </p>
+        </div>
+        <div class="skills"><b>Technical skills:</b>
+          <p>
+            <ul class="list">
+            {{#each skills}}
+              <li>{{this}}</li>
+            {{/each}}
+            </ul>
+          </p>
+        </div>
+        <div class="experience"><b>Experience:</b>
+          {{#if experiences}}
+            <p>
+            <ul class="list">
+            {{#each experiences}}
+              <li>{{this}}</li>
+            {{/each}}
+            </ul>
+          </p>
+            {{else}}
+              <p>No experience information was provided</p>
+          {{/if}}
+        </div>
+      </div>
+    </script> <!-- End Handlebars template -->
+
+    <script type="x-tmpl" id="profileTemplateUnderscore">
+      <div class='header'>Hello <%=name%>! This is a Underscore template example.
+      </div>
+      <div class='profile'>
+        <div class='topData'>
+          <%var fullName = function(person){ return person.name +' '+ person.lastName};%>
+          <h1><%=fullName(person)%></h1>
+          <img class='profileImg' src=<%=img%>>
+        </div>
+        <div class='contactDetails'><b>Contact information:</b>
+          <p>Email: <%=email%></p>
+          <p>Phone: <%=phone%></p>
+        </div>
+        <div class='educationDetails'><b>Education:</b>
+          <p>University: <%=university%></p>
+          <p>Languages:
+            <% _.each(languages, function(language) { %>
+              <%= language %>,
+            <% }); %>
+          </p>
+        </div>
+        <div class='skills'><b>Technical skills:</b>
+          <p>
+            <ul class='list'>
+              <% _.each(skills, function(skill) { %>
+                <li><%= skill %></li>
+              <% }); %>
+            </ul>
+          </p>
+        </div>
+        <div class='experience'><b>Experience:</b>
+          <% if(experiences) { %>
+            <p>
+              <ul class='list'>
+                <% _.each(experiences, function(experience) { %>
+                  <li><%= experience %></li>
+                <% }); %>
+              </ul>
+            </p>
+          <% } else { %>
+            <p>No experience information was provided</p>
+          <% } %>
+        </div>
+      </div>
+    </script> <!-- End Underscore template -->
+
+    <script type="text/template" id="profileTemplateDust">
+      <div class="header">Hello {name}! This is a Dust template example.
+      </div>
+      <div class="profile">
+        <div class="topData">
+          <h1>{#fullName/}</h1>
+          <img class="profileImg" src={img}>
+        </div>
+        <div class="contactDetails"><b>Contact information:</b>
+          <p>Email: {email}</p>
+          <p>Phone: {phone}</p>
+        </div>
+        <div class="educationDetails"><b>Education:</b>
+          <p>University: {university}</p>
+          <p>Languages:
+            {#languages}
+              {.},
+            {/languages}
+          </p>
+        </div>
+        <div class="skills"><b>Technical skills:</b>
+          <p>
+            <ul class="list">
+            {#skills}
+              <li>{.}</li>
+            {/skills}
+            </ul>
+          </p>
+        </div>
+        <div class="experience"><b>Experience:</b>
+          {?experiences}
+            <p>
+            <ul class="list">
+            {#experiences}
+              <li>{.}</li>
+            {/experiences}
+            </ul>
+          </p>
+          {:else}
+            <p>No experience information was provided</p>
+          {{/experiences}}
+        </div>
+      </div>
+    </script> <!-- End Dust template -->
+
+    <script type="text/javascript" src="js/app.js"></script>
+  </body>
+</html>
