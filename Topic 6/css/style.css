@@ -1,0 +1,33 @@
+.header {
+  text-align: right;
+  height: 30px;
+  width: auto;
+  background-color: grey;
+}
+.profile {
+  margin: 3px;
+  border: 4px solid grey;
+  border-radius: 5px;
+  clear: both;
+}
+.profile div {
+  margin-left: 15px;
+}
+.list {
+  margin-left: 10px;
+}
+.topData img.profileImg{
+  border: 2px solid grey;
+  float: right;
+  height: 150px;
+  width: 150px;
+  margin: 5px;
+}
+.topData h1{
+  float: left;
+  margin-left: 550px;
+}
+.topData {
+  border-bottom: 1px solid grey;
+  height: 160px;
+}
