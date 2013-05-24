@@ -7,19 +7,20 @@ var handlebarsFn = function (data) {
   var html = compiled(data);
   $('#content').html(html);
 };
-
+var data = null;
 var json = function(fn) {
   var json = null;
   $.ajax({
     'async': false,
     'url': 'data/profileContext.json',
     'dataType': 'json',
-    'success': function(data) {
-      fn(data);
+    'success': function(data2) {
+      data = data2;
     }
   });
 };
-json(handlebarsFn);
+json();
+handlebarsFn(data);
 
 $('#underscoreBtn').on('click', function() {
   var underscoreFn = function(data) {
@@ -27,7 +28,7 @@ $('#underscoreBtn').on('click', function() {
     var compiled = _.template(source, data);
     $('#content').html(compiled);
   };
-  json(underscoreFn);
+  underscoreFn(data);
 });
 
 $('#dustBtn').on('click', function() {
@@ -48,5 +49,5 @@ $('#dustBtn').on('click', function() {
         $('#content').html(res);
       });
   };
-  json(dustFn);
+  dustFn(data);
 });
