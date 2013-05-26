@@ -9,7 +9,12 @@
     <div id="moviesApp">
       <header>
         <h1>Your favorite movies:</h1>
-        <input id="new-todo" type="text" placeholder="New favorite movie? Enter title here">
+        <div id="new-movie">
+          <input id="new-title" type="text" placeholder="New favorite movie? Enter title here">
+          <input id="new-director" type="text" placeholder="Enter director here">
+          <input id="new-year" type="text" placeholder="Enter year here">
+          <button id="new-todo">Ok</button>
+        </div>
       </header>
       <section id="main">
         <input id="toggle-all" type="checkbox">
@@ -22,7 +27,7 @@
       </footer>
     </div>
     <div id="instructions">
-      Double-click to edit a todo.
+      Double-click to edit a movie.
     </div>
 
     <script type="text/javascript" src="js/libs/json2.js"></script>

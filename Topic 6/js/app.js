@@ -5,7 +5,7 @@
 
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
-
+  Backbone.$ = $; 
   // Movie Model
   // ----------
 
@@ -154,7 +154,7 @@ $(function(){
 
     // Delegated events for creating new items, and clearing completed ones.
     events: {
-      "keypress #new-todo":  "createOnEnter",
+      "click #new-todo":  "createOnEnter",
       "click #clear-completed": "clearCompleted",
       "click #toggle-all": "toggleAllComplete"
     },
@@ -164,7 +164,7 @@ $(function(){
     // loading any preexisting todos that might be saved in *localStorage*.
     initialize: function() {
 
-      this.input = this.$("#new-todo");
+      this.input = this.$("#new-movie");
       this.allCheckbox = this.$("#toggle-all")[0];
 
       this.listenTo(Movies, 'add', this.addOne);
@@ -210,11 +210,13 @@ $(function(){
     // If you hit return in the main input field, create new **Todo** model,
     // persisting it to *localStorage*.
     createOnEnter: function(e) {
-      if (e.keyCode != 13) return;
-      if (!this.input.val()) return;
+      //if (e.keyCode != 13) return;
+      if (!$('#new-title').val()) return;
 
-      Movies.create({title: this.input.val(), director: 'Juan', year: '2000'});
-      this.input.val('');
+      Movies.create({title: Backbone.$('#new-title').val(), director: $('#new-director').val(), year: $('#new-year').val()});
+      $('#new-title').val('');
+      $('#new-director').val('');
+      $('#new-year').val('');
     },
 
     // Clear all done todo items, destroying their models.
