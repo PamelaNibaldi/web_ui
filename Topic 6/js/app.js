@@ -5,7 +5,7 @@
 
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
-  Backbone.$ = $; 
+  Backbone.$ = $;
   // Movie Model
   // ----------
 
@@ -15,21 +15,19 @@ $(function(){
     // Default attributes for the todo item.
     defaults: function() {
       return {
-        title: "empty title...",
-        director: "",
-        year: "",
+        title: 'empty title...',
+        director: '',
+        year: '',
         order: Movies.nextOrder(),
-        done: false
       };
     },
 
-    // Toggle the `done` state of this todo item.
-    toggle: function() {
-      this.save({done: !this.get("done")});
-    }
+    //Toggle the `done` state of this todo item.
+    // toggle: function() {
+    //   this.save({done: !this.get("done")});
+    // }
 
   });
-
   // Movie Collection
   // ---------------
 
@@ -40,27 +38,27 @@ $(function(){
     // Reference to this collection's model.
     model: Movie,
 
-    // Save all of the todo items under the `"todos-backbone"` namespace.
-    localStorage: new Backbone.LocalStorage("todos-backbone"),
+    // Save all of the todo items under the `"movies-backbone"` namespace.
+    localStorage: new Backbone.LocalStorage('movies-backbone'),
 
     // Filter down the list of all todo items that are finished.
-    done: function() {
-      return this.where({done: true});
-    },
+    // done: function() {
+    //   return this.where({done: true});
+    // },
 
     // Filter down the list to only todo items that are still not finished.
-    remaining: function() {
-      return this.without.apply(this, this.done());
-    },
+    // remaining: function() {
+    //   return this.without.apply(this, this.done());
+    // },
 
-    // We keep the Todos in sequential order, despite being saved by unordered
+    // We keep the Movies in sequential order, despite being saved by unordered
     // GUID in the database. This generates the next order number for new items.
     nextOrder: function() {
       if (!this.length) return 1;
       return this.last().get('order') + 1;
     },
 
-    // Todos are sorted by their original insertion order.
+    // Movies are sorted by their original insertion order.
     comparator: 'order'
 
   });
@@ -68,62 +66,63 @@ $(function(){
   // Create our global collection of **Movies**.
   var Movies = new MovieList;
 
-  // Todo Item View
+  // Movie Item View
   // --------------
 
-  // The DOM element for a todo item...
-  var TodoView = Backbone.View.extend({
+  // The DOM element for a movie item...
+  var MovieView = Backbone.View.extend({
 
     //... is a list tag.
-    tagName:  "li",
+    tagName:  'li',
 
     // Cache the template function for a single item.
     template: _.template($('#item-template').html()),
 
     // The DOM events specific to an item.
     events: {
-      "click .toggle"   : "toggleDone",
+      // "click .toggle"   : "toggleDone",
       "dblclick .view"  : "edit",
       "click a.destroy" : "clear",
       "keypress .edit"  : "updateOnEnter",
       "blur .edit"      : "close"
     },
 
-    // The TodoView listens for changes to its model, re-rendering. Since there's
-    // a one-to-one correspondence between a **Todo** and a **TodoView** in this
+    // The MovieView listens for changes to its model, re-rendering. Since there's
+    // a one-to-one correspondence between a **Movie** and a **MovieView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
       this.listenTo(this.model, 'change', this.render);
       this.listenTo(this.model, 'destroy', this.remove);
     },
 
-    // Re-render the titles of the todo item.
+    // Re-render the attributes of the movie item.
     render: function() {
       this.$el.html(this.template(this.model.toJSON()));
-      this.$el.toggleClass('done', this.model.get('done'));
+      //this.$el.toggleClass('done', this.model.get('done'));
       this.input = this.$('.edit');
       return this;
     },
 
     // Toggle the `"done"` state of the model.
-    toggleDone: function() {
-      this.model.toggle();
-    },
+    // toggleDone: function() {
+    //   this.model.toggle();
+    // },
+
 
     // Switch this view into `"editing"` mode, displaying the input field.
     edit: function() {
-      this.$el.addClass("editing");
+      this.$el.addClass('editing');
       this.input.focus();
     },
 
-    // Close the `"editing"` mode, saving changes to the todo.
+    // Close the `"editing"` mode, saving changes to the movie.
     close: function() {
-      var value = this.input.val();
-      if (!value) {
+      var valueAttributes = this.input.val().split(',');
+      if (!valueAttributes[0]) {
         this.clear();
       } else {
-        this.model.save({title: value});
-        this.$el.removeClass("editing");
+        this.model.save({title: valueAttributes[0], director: valueAttributes[1], year: valueAttributes[2] });
+        this.$el.removeClass('editing');
       }
     },
 
@@ -147,16 +146,16 @@ $(function(){
 
     // Instead of generating a new element, bind to the existing skeleton of
     // the App already present in the HTML.
-    el: $("#moviesApp"),
+    el: $('#moviesApp'),
 
     // Our template for the line of statistics at the bottom of the app.
-    statsTemplate: _.template($('#stats-template').html()),
+   // statsTemplate: _.template($('#stats-template').html()),
 
     // Delegated events for creating new items, and clearing completed ones.
     events: {
-      "click #new-todo":  "createOnEnter",
-      "click #clear-completed": "clearCompleted",
-      "click #toggle-all": "toggleAllComplete"
+      'click #new-movieBtn':  'createOnClick',
+      //'click #clear-completed': 'clearCompleted',
+      //'click #toggle-all': 'toggleAllComplete'
     },
 
     // At initialization we bind to the relevant events on the `Todos`
@@ -164,14 +163,14 @@ $(function(){
     // loading any preexisting todos that might be saved in *localStorage*.
     initialize: function() {
 
-      this.input = this.$("#new-movie");
-      this.allCheckbox = this.$("#toggle-all")[0];
+      this.input = this.$('#new-movie');
+      //this.allCheckbox = this.$("#toggle-all")[0];
 
       this.listenTo(Movies, 'add', this.addOne);
       this.listenTo(Movies, 'reset', this.addAll);
       this.listenTo(Movies, 'all', this.render);
 
-      this.footer = this.$('footer');
+      //this.footer = this.$('footer');
       this.main = $('#main');
 
       Movies.fetch();
@@ -180,37 +179,36 @@ $(function(){
     // Re-rendering the App just means refreshing the statistics -- the rest
     // of the app doesn't change.
     render: function() {
-      var done = Movies.done().length;
-      var remaining = Movies.remaining().length;
+      //var done = Movies.done().length;
+      //var remaining = Movies.remaining().length;
 
       if (Movies.length) {
         this.main.show();
-        this.footer.show();
-        this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
+        //this.footer.show();
+        //this.footer.html(this.statsTemplate({done: done, remaining: remaining}));
       } else {
         this.main.hide();
-        this.footer.hide();
+        //this.footer.hide();
       }
 
-      this.allCheckbox.checked = !remaining;
+      //this.allCheckbox.checked = !remaining;
     },
 
     // Add a single todo item to the list by creating a view for it, and
     // appending its element to the `<ul>`.
-    addOne: function(todo) {
-      var view = new TodoView({model: todo});
-      this.$("#todo-list").append(view.render().el);
+    addOne: function(movie) {
+      var view = new MovieView({model: movie});
+      this.$('#movie-list').append(view.render().el);
     },
 
-    // Add all items in the **Todos** collection at once.
+    // Add all items in the **Movies** collection at once.
     addAll: function() {
       Movies.each(this.addOne, this);
     },
 
-    // If you hit return in the main input field, create new **Todo** model,
+    // If you hit return in the main input field, create new **Movie** model,
     // persisting it to *localStorage*.
-    createOnEnter: function(e) {
-      //if (e.keyCode != 13) return;
+    createOnClick: function() {
       if (!$('#new-title').val()) return;
 
       Movies.create({title: Backbone.$('#new-title').val(), director: $('#new-director').val(), year: $('#new-year').val()});
@@ -219,16 +217,16 @@ $(function(){
       $('#new-year').val('');
     },
 
-    // Clear all done todo items, destroying their models.
-    clearCompleted: function() {
-      _.invoke(Movies.done(), 'destroy');
-      return false;
-    },
+    //Clear all done movie items, destroying their models.
+    // clearCompleted: function() {
+    //   _.invoke(Movies.done(), 'destroy');
+    //   return false;
+    // },
 
-    toggleAllComplete: function () {
-      var done = this.allCheckbox.checked;
-      Movies.each(function (todo) { todo.save({'done': done}); });
-    }
+    // toggleAllComplete: function () {
+    //   var done = this.allCheckbox.checked;
+    //   Movies.each(function (todo) { todo.save({'done': done}); });
+    // }
 
   });
 
