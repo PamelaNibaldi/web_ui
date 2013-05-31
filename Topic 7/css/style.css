@@ -8,12 +8,13 @@ body {
 body {
   font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  background: #eeeeee;
   color: #333333;
-  margin: 0 auto;
   -webkit-font-smoothing: antialiased;
 }
-
+.container {
+  background: #eeeeee;
+  padding: 10px;
+}
 .header-top {
   text-align: center;
   border-bottom: 2px solid;
@@ -41,29 +42,123 @@ footer {
 time {
   float: right;
 }
-section {
+
+/*section {
   text-align: left;
   float: left;
-}
+}*/
 
 /*Exercise 1- Simple HTML5*/
 .sectionIndex {
-  width: 70%;
+  width: 800px;
   margin-right: 30px;
+  float: left;
 }
+
 .asideIndex {
   float: right;
-  width: 25%
+  width: 350px;
 }
+
 
 /*Mostly fluid*/
 .bodyMostlyFluid {
-  width: 960px;
+  max-width:960px;
+  margin:20px auto;
 }
-.sectionMostlyFuid {
-  width: 730px;
+@media screen and (min-width: 750px) {
+  .sectionMostlyFuid {
+    width: 750px;
+  }
 }
 .asideMostlyFuid {
   float: left;
   width: 210px;
+}
+
+
+/*Column drop*/
+.bodyColumnDrop {
+  width: 100%;
+}
+
+@media screen and (min-width: 1200px) {
+  .mainSection {
+    width: 600px;
+    margin: 0 20px;
+    float: left;
+  }
+  .leftSection {
+    width: 400px;
+    float: left;
+  }
+  .asideColumnDrop {
+    float: right;
+  }
+}
+
+@media screen and (min-width: 840px) and (max-width: 1200px) {
+  .mainSection {
+    width: 58%;
+    margin: 0 1%;
+    float: right;
+  }
+  .leftSection {
+    width: 40%;
+    float: left;
+  }
+  .asideColumnDrop {
+    float: left;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 840px){
+   .mainSection {
+    width: 100%;
+    float: right;
+  }
+  .leftSection {
+    width: 100%;
+    float: right;
+  }
+  .asideColumnDrop {
+    width: 100%;
+  }
+}
+
+/*Layout shifter*/
+.bodyLayoutShifter {
+    margin: 0 auto;
+  }
+
+@media screen and (min-width: 960px){
+  .bodyLayoutShifter {
+    width: 960px;
+  }
+  .leftAside {
+    float: left;
+    width: 20%;
+  }
+  .firstSection, .secondSection {
+    width: 30%;
+    float: left;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .leftAside {
+    width: 100%;
+  }
+  .firstSection, secondSection {
+    width: 50%;
+  }
+}
+
+/*Off canvas*/
+.bodyOfffCanvas {
+    margin: 0 auto;
+  }
+
+@media screen and (min-width: 960px){
 }
